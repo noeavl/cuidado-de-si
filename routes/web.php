@@ -26,7 +26,7 @@ switch ($request_uri) {
         UserController::store($_POST['data']['name'], $_POST['data']['username'], $_POST['data']['email'], $_POST['data']['password'], $_POST['data']['role']);
         break;
     case '/users/update':
-        UserController::update($_POST['id'], $_POST['data']['name'], $_POST['data']['username'], $_POST['data']['email'], $_POST['data']['password'], $_POST['data']['role'], $_POST['data']['status']);
+        UserController::update($_POST['data']['id'], $_POST['data']['name'], $_POST['data']['username'], $_POST['data']['email'], $_POST['data']['password'] ?? null, $_POST['data']['role'], $_POST['data']['status']);
         break;
     case '/users/status':
         UserController::status($_POST['id'], $_POST['status']);

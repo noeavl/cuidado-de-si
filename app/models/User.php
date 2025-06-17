@@ -64,13 +64,14 @@ class User
 
             foreach($allowedFields as $field){
                 if(isset($data[$field])){
-                    $fields[] = $field . ' = :' . $field;
-                    $params[':' . $field] = $data[$field];
+                    if($field == 'password'){
+                        $fields[] = $field . ' = :' . $field;
+                        $params[':' . $field] = password_hash($data[$field], PASSWORD_DEFAULT);
+                    }else{
+                        $fields[] = $field . ' = :' . $field;
+                        $params[':' . $field] = $data[$field];
+                    }
                 }
-            }
-            if(isset($data['password']) && !empty($data['password'])){
-                $fields[] = 'password = :password';
-                $params[':password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             }
 
             if(empty($fields)){

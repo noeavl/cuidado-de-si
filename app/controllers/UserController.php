@@ -33,11 +33,36 @@ class UserController
             ]);
         }
     }
-    public static function update($id,$name,$username,$email,$password,$role, $status){
-        if(User::update($id,['name'=>$name,'username'=>$username,'email'=>$email,'password'=>$password,'role'=>$role, 'status'=>$status])){
+    public static function update($id, $name,$username,$email,$password = null,$role, $status){
+        $data = [];
+        if($password){
+            $data = [
+                'name'=>$name,
+                'username'=>$username,
+                'email'=>$email,
+                'password'=>$password,
+                'role'=>$role,
+                'status'=>$status
+            ];
+        }else{
+            $data = [
+                'name'=>$name,
+                'username'=>$username,
+                'email'=>$email,
+                'role'=>$role,
+                'status'=>$status
+            ];
+        }
+
+        if(User::update($id,$data)){
             echo json_encode([
                 'success' => true,
                 'message' => 'Usuario actualizado correctamente',
+            ]);
+        }else{
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error al actualizar el usuario'
             ]);
         }
     }

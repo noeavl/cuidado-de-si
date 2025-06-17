@@ -5,6 +5,7 @@ $(() => {
         data: { REQUEST_URI: '/users/find-by-id', id: $('#id').val() },
         success: (response) => {
             if (response.success) {
+                $('#id').val(response.user.id)
                 $('#name').val(response.user.name)
                 $('#username').val(response.user.username)
                 $('#email').val(response.user.email)
@@ -95,7 +96,8 @@ $(() => {
                     type: 'POST',
                     data: {
                         REQUEST_URI: `/users/check-${type}`,
-                        [type]: value
+                        [type]: value,
+                        excludeId: formData.id
                     },
                     success: (response) => {
                         if (response.success) {
@@ -118,12 +120,15 @@ $(() => {
             checkDuplicate('username', formData.username)
         ])
 
+        console.log('hasErrors: ', hasErrors)
+        console.log('formData: ', formData)
+
         if (hasErrors) return
 
         $.ajax({
             url: '../routes/web.php',
             type: 'POST',
-            data: { REQUEST_URI: '/users/update', data: formData, id: formData.id },
+            data: { REQUEST_URI: '/users/update', data: formData },
             success: (response) => {
                 if (response.success) {
                     Swal.fire({

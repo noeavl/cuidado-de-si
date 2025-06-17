@@ -11,6 +11,7 @@ $(() => {
         e.preventDefault();
         let hasErrors = false
 
+
         const formData = {
             name: $('#name').val(),
             username: $('#username').val(),
@@ -94,6 +95,10 @@ $(() => {
             checkDuplicate('username', formData.username)
         ])
 
+        console.log('hasErrors: ', hasErrors)
+
+        console.log('formData: ', formData)
+
         if (hasErrors) return
 
         $.ajax({
@@ -104,7 +109,7 @@ $(() => {
                 if (response.success) {
                     Swal.fire({
                         icon: 'success',
-                        title: 'Exito',
+                        title: '!Exito¡',
                         text: response.message,
                         showConfirmButton: false,
                         timer: 1500

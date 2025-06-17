@@ -13,7 +13,7 @@
                 <div class="card p-2 border-0 shadow">
                     <div class="card-body">
                         <form action="" method="POST" id="form">
-                            <input type="hidden" name="id" id="id" value="<?= $_GET['id'] ?>">
+                            <input type="hidden" name="id" id="id" value="<?php echo $_GET['id'] ?? '' ?>">
                             <div class="form-floating mb-2">
                                 <input type="text" class="form-control border-0 border-bottom rounded-0" id="name" name="name" placeholder="Nombre">
                                 <label for="name" class="form-label">Nombre</label>
@@ -27,11 +27,11 @@
                                 <label for="email" class="form-label">Correo Electronico</label>
                             </div>
                             <div class="form-floating mb-2">
-                                <input type="password" class="form-control border-0 border-bottom rounded-0" id="password" name="password" placeholder="Contraseña">
+                                <input type="password" autocomplete="off" class="form-control border-0 border-bottom rounded-0" id="password" name="password" placeholder="Contraseña">
                                 <label for="password" class="form-label">Contraseña</label>
                             </div>
                             <div class="form-floating mb-3">
-                                <input type="password" class="form-control border-0 border-bottom rounded-0" id="password_confirmation" name="password_confirmation" placeholder="Confirmar Contraseña" >
+                                <input type="password" autocomplete="off" class="form-control border-0 border-bottom rounded-0" id="password_confirmation" name="password_confirmation" placeholder="Confirmar Contraseña" >
                                 <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
                             </div>
                             <div class="mb-4">
