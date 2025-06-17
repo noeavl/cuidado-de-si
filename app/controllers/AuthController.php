@@ -5,7 +5,7 @@ class AuthController
 {
     public static function login($email, $password)
     {
-        $user = User::findByEmail($email);
+        $user = User::findByEmail($email, null);
 
         if ($user && password_verify($password, $user['password'])) {
             session_start();
@@ -17,6 +17,15 @@ class AuthController
             ]);
             return;
         }
+
+        if($user && $user['status'] == 0){
+            echo json_encode([
+                'success' => false,
+                'message' => '¡Usuario desactivado!'
+            ]);
+            return;
+        }
+
         echo json_encode([
             'success' => false,
             'message' => "¡Credenciales Incorrectas!"

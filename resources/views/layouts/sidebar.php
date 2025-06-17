@@ -7,7 +7,7 @@
             <span>Dashboard</span>
         </li>
         <li>
-            <a href="?page=usuarios">
+            <a href="?page=users">
                 <i class="fa-solid fa-user"></i>
             </a>
             <span>Usuarios</span>

@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Event.php';
+header('Content-Type: application/json');   
 class EventController
 {
     public static function index()
@@ -15,12 +16,22 @@ class EventController
     {
 
     }
-    public static function update()
+    public static function update(int $id)
     {
 
     }
-    public static function status()
+    public static function status(int $id, $status)
     {
-
+        if(Event::update($id,['status'=>$status])){
+            echo json_encode([
+                'success' => true,
+                'message' => 'Evento actualizado correctamente',
+            ]);
+        }else{
+            echo json_encode([
+                'success' => false,
+                'message' => 'Error al actualizar el evento'
+            ]);
+        }
     }
 }

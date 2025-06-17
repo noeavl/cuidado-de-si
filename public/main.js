@@ -18,7 +18,7 @@ $(() => {
                 } else {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
+                        title: '¡Error!',
                         text: response.message,
                         showConfirmButton: false,
                         timer: 1500
@@ -29,7 +29,7 @@ $(() => {
                 console.log('Error: ', error)
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error',
+                    title: '¡Error!',
                     text: 'Hubo un error al procesar la solicitud'
                 });
             }

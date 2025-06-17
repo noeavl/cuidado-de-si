@@ -1,20 +1,19 @@
 $(() => {
-    $('#eventsTable').DataTable({
+    $('#usersTable').DataTable({
         ajax: {
             url: '../routes/web.php',
             type: 'GET',
             data: function (d) {
-                d.REQUEST_URI = '/events/list'
+                d.REQUEST_URI = '/users/list'
             },
-            dataSrc: 'events'
+            dataSrc: 'users'
         },
         columns: [
             { data: 'id' },
-            { data: 'banner' },
             { data: 'name' },
-            { data: 'place' },
-            { data: 'date' },
-            {
+            { data: 'username' },
+            { data: 'email' },
+            { data: 'role' }, {
                 data: null,
                 render: function (data, type, row, meta) {
                     return row.status ? `<span class="badge text-bg-success">Activo</span>` : '<span class="badge text-bg-danger">Inactivo</span>'
@@ -24,17 +23,18 @@ $(() => {
                 data: null,
                 render: function (data, type, row, meta) {
                     return `
-                    <button class="btn btn-primary">
+                    <a class="btn btn-primary" href="?page=edit-user&id=${row.id}">
                         <i class="fa-solid fa-pen"></i>
-                    </button>
+                    </a>
                     ${row.status
-                            ? `<button class="btn btn-success" onclick="activateEvent(${row.id},0)">
+                            ? `<button class="btn btn-success" onclick="activateUser(${row.id},0)">
                         <i class="fa-solid fa-eye"></i>
                        </button>`
-                            : ` <button class="btn btn-danger" onclick="activateEvent(${row.id},1)">
+                            : `<button class="btn btn-danger" onclick="activateUser(${row.id},1)">
                          <i class="fa-solid fa-eye-slash"></i>
                         </button>`}
                     `
+
                 }
             }
         ],
@@ -45,10 +45,11 @@ $(() => {
 
 
 })
-function activateEvent(id, status) {
+
+function activateUser(id, status) {
     Swal.fire({
-        title: `${status ? 'Activar' : 'Desactivar'} Evento`,
-        text: `¿Estás seguro de ${status ? 'Activar' : 'Desactivar'} este evento?`,
+        title: `${status ? 'Activar' : 'Desactivar'} Usuario`,
+        text: `¿Estás seguro de ${status ? 'Activar' : 'Desactivar'} este usuario?`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: `${status ? '#198754' : '#dc3545'}`,
@@ -59,7 +60,7 @@ function activateEvent(id, status) {
             $.ajax({
                 url: '../routes/web.php',
                 type: 'POST',
-                data: { REQUEST_URI: '/events/status', id: id, status: status },
+                data: { REQUEST_URI: '/users/status', id: id, status: status },
                 success: (response) => {
                     if (response.success) {
                         Swal.fire({
@@ -69,7 +70,9 @@ function activateEvent(id, status) {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#eventsTable').DataTable().ajax.reload();
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1500);
                     } else {
                         Swal.fire({
                             icon: 'error',

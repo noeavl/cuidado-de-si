@@ -14,4 +14,30 @@ class Event
             return false;
         }
     }
+    public static function update($id, $data){
+        try{
+            $db = Database::getConnection();
+            $fields = [];
+            $params = [':id'=>$id];
+            $allowedFields = ['name','place','date','banner','status'];
+
+            foreach($allowedFields as $field){
+                if(isset($data[$field])){
+                    $fields[] = $field . ' = :' . $field;
+                    $params[':' . $field] = $data[$field];
+                }
+            }
+
+            if(empty($fields)){
+                return false;
+            }
+
+            $query = "UPDATE events SET " . implode(', ', $fields) . " WHERE id = :id";
+            $stmt = $db->prepare($query);
+            $stmt->execute($params);
+            return true;
+        }catch(PDOException $e){
+            return false;
+        }
+    }
 }
