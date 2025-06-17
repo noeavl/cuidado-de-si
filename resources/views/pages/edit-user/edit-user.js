@@ -19,6 +19,8 @@ $(() => {
                 icon: 'error',
                 title: '¡Error!',
                 text: 'Hubo un error al obtener los datos del usuario'
+            }).then(() => {
+                window.location.href = '?page=users'
             });
         }
     })
