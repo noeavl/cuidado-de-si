@@ -1,28 +1,27 @@
 <?php
 require_once __DIR__ . '/../../infrastructure/Database.php';
 use Core\Database;
-class Event
+class Blog
 {
     public static function all()
     {
         try {
             $db = Database::getConnection();
-            $stmt = $db->prepare("SELECT * FROM events ORDER BY status DESC,id DESC");
+            $stmt = $db->prepare("SELECT * FROM blogs ORDER BY status DESC,id DESC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             return false;
         }
     }
-    public static function create($name,$place,$date,$banner){
+    public static function create($title,$description,$img){
         try{
             $db = Database::getConnection();
-            $stmt = $db->prepare("INSERT INTO events (name,place,date,banner) VALUES (:name,:place,:date,:banner)");
+            $stmt = $db->prepare("INSERT INTO blogs (title,description,img) VALUES (:title,:description,:img)");
             $stmt->execute([
-                ':name' => $name,
-                ':place' => $place,
-                ':date' => $date,
-                ':banner' => $banner
+                ':title' => $title,
+                ':description' => $description,
+                ':img' => $img
             ]);
             return true;
         }catch(PDOException $e){
@@ -35,7 +34,7 @@ class Event
             $db = Database::getConnection();
             $fields = [];
             $params = [':id'=>$id];
-            $allowedFields = ['name','place','date','banner','status'];
+            $allowedFields = ['title','description','img','status'];
 
             foreach($allowedFields as $field){
                 if(isset($data[$field])){
@@ -48,7 +47,7 @@ class Event
                 return false;
             }
 
-            $query = "UPDATE events SET " . implode(', ', $fields) . " WHERE id = :id";
+            $query = "UPDATE blogs SET " . implode(', ', $fields) . " WHERE id = :id";
             $stmt = $db->prepare($query);
             $stmt->execute($params);
             return true;

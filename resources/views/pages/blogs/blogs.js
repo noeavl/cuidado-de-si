@@ -1,20 +1,19 @@
 $(() => {
-    $('#eventsTable').DataTable({
+    $('#blogsTable').DataTable({
         ordering: false,
         ajax: {
             url: '../routes/web.php',
             type: 'GET',
             data: function (d) {
-                d.REQUEST_URI = '/events/list'
+                d.REQUEST_URI = '/blogs/list'
             },
-            dataSrc: 'events'
+            dataSrc: 'blogs'
         },
         columns: [
             { data: 'id' },
-            { data: 'banner' },
-            { data: 'name' },
-            { data: 'place' },
-            { data: 'date' },
+            { data: 'img' },
+            { data: 'title' },
+            { data: 'description' },
             {
                 data: null,
                 render: function (data, type, row, meta) {
@@ -29,10 +28,10 @@ $(() => {
                         <i class="fa-solid fa-pen"></i>
                     </button>
                     ${row.status
-                            ? `<button class="btn btn-success" onclick="activateEvent(${row.id},0)">
+                            ? `<button class="btn btn-success" onclick="activateBlog(${row.id},0)">
                         <i class="fa-solid fa-check"></i>
                        </button>`
-                            : ` <button class="btn btn-danger" onclick="activateEvent(${row.id},1)">
+                            : ` <button class="btn btn-danger" onclick="activateBlog(${row.id},1)">
                          <i class="fa-solid fa-x"></i>
                         </button>`}
                     `
@@ -46,10 +45,10 @@ $(() => {
 
 
 })
-function activateEvent(id, status) {
+function activateBlog(id, status) {
     Swal.fire({
-        title: `${status ? 'Activar' : 'Desactivar'} Evento`,
-        text: `¿Estás seguro de ${status ? 'Activar' : 'Desactivar'} este evento?`,
+        title: `${status ? 'Activar' : 'Desactivar'} Blog`,
+        text: `¿Estás seguro de ${status ? 'Activar' : 'Desactivar'} este blog?`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: `${status ? '#198754' : '#dc3545'}`,
@@ -60,7 +59,7 @@ function activateEvent(id, status) {
             $.ajax({
                 url: '../routes/web.php',
                 type: 'POST',
-                data: { REQUEST_URI: '/events/status', id: id, status: status },
+                data: { REQUEST_URI: '/blogs/status', id: id, status: status },
                 success: (response) => {
                     if (response.success) {
                         Swal.fire({

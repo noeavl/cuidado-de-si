@@ -1,24 +1,43 @@
-<form action="" method="POST" id="form" enctype="multipart/form-data">
-    <h1>Crear Evento</h1>
-    <div class="form-floating mb-3">
-        <input class="form-control border-0 border-bottom rounded-0 " type="text" name="name" id="name" placeholder="Nombre" maxlength="255">
-        <label for="name">Nombre</label>
+<div class="container-fluid h-100 d-flex flex-column">
+    <div class="">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1 class="fw-bold">Crear Evento</h1>
+            <a href="?page=events" class="btn btn-secondary fw-bold">
+                <i class="fas fa-arrow-left me-2"></i>Volver 
+            </a>
+        </div>
     </div>
-    <div class="form-floating mb-3">
-        <input class="form-control border-0 border-bottom rounded-0"  type="text" name="place" id="place" placeholder="Lugar" maxlength="255">
-        <label for="place">Lugar</label>
+    <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+        <div class="row w-100 justify-content-center align-items-center">
+            <div class="col-md-6">
+                <div class="card p-2 border-0 shadow">
+                    <div class="card-body">
+                        <form action="" method="POST" id="form">
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control border-0 border-bottom rounded-0" id="name" name="name" placeholder="Nombre">
+                                <label for="name" class="form-label">Nombre</label>
+                            </div>
+                            <div class="form-floating mb-2">
+                                <input type="text" class="form-control border-0 border-bottom rounded-0" id="place" name="place" placeholder="Lugar" >
+                                <label for="place" class="form-label">Lugar</label>
+                            </div>
+                            <div class="form-floating mb-2">  
+                                <input type="date" class="form-control border-0 border-bottom rounded-0" id="date" name="date" placeholder="Fecha" min="<?php echo date('Y-m-d'); ?>" >
+                                <label for="date" class="form-label">Fecha</label>
+                            </div>
+                            <div class="my-4">
+                                <label for="banner" class="form-label">Banner del Evento</label>
+                                <input type="file" class="filepond" id="banner" name="event_banner" accept="image/*">
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg" id="submit">
+                                    <i class="fas fa-save me-2"></i>Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-floating mb-3">
-        <input class="form-control border-0 border-bottom rounded-0" type="date" name="date" id="date" min="<?php echo date('Y-m-d') ?>" placeholder="Fecha">
-        <label for="date">Fecha</label>
-    </div>
-    <div class="mb-3">
-        <label for="banner">Banner</label>
-        <input type="file" class="my-pond" name="filepond" accept="image/png, image/jpeg, image/gif"/>
-    </div>
-    <div class="mb-3">
-        <button class="btn btn-primary" type="submit">
-            Guardar
-        </button>
-    </div>
-</form>
+</div>

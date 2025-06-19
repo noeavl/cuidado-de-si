@@ -1,5 +1,6 @@
 $(() => {
     $('#usersTable').DataTable({
+        ordering: false,
         ajax: {
             url: '../routes/web.php',
             type: 'GET',
@@ -28,10 +29,10 @@ $(() => {
                     </a>
                     ${row.status
                             ? `<button class="btn btn-success" onclick="activateUser(${row.id},0)">
-                        <i class="fa-solid fa-eye"></i>
+                        <i class="fa-solid fa-check"></i>
                        </button>`
                             : `<button class="btn btn-danger" onclick="activateUser(${row.id},1)">
-                         <i class="fa-solid fa-eye-slash"></i>
+                         <i class="fa-solid fa-x"></i>
                         </button>`}
                     `
 

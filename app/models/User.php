@@ -48,7 +48,7 @@ class User
     public static function all(){
         try{
             $db = Database::getConnection();
-            $stmt = $db->prepare("SELECT * FROM users");
+            $stmt = $db->prepare("SELECT * FROM users ORDER BY status DESC,id DESC");
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
